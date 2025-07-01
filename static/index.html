@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYAI - 영양제 추천 서비스</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="/"> <!-- 이 줄을 추가합니다 -->
+                    <img src="/static/hyai_pill_logo.png" alt="HYAI Logo">
+
+                    <h1>HYAI</h1>
+                </a>
+            </div>
+
+            <nav class="nav">
+                <ul class="nav-list">
+                    <li><a href="#trending" class="nav-link">요즘 떠오르는 영양제</a></li>
+                    <li><a href="#demographics" class="nav-link">성별/나이별 추천</a></li>
+                    <li><a href="#chatbot" class="nav-link">AI 상담</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button id="loginBtn" class="btn btn-outline">로그인</button>
+                <button id="registerBtn" class="btn btn-primary">회원가입</button>
+                <div id="userInfo" class="user-info" style="display: none;">
+                    <span id="userEmail"></span>
+                    <button id="logoutBtn" class="btn btn-outline">로그아웃</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 메인 컨텐츠 -->
+    <main class="main">
+        <!-- 홈 섹션 -->
+        <section id="home" class="section active">
+            <div class="container">
+                <div class="hero">
+                    <h2>개인 맞춤형 영양제 추천 서비스</h2>
+                    <p>당신의 건강한 삶을 위한 최적의 영양제를 찾아보세요</p>
+                    <button class="btn btn-primary btn-large" onclick="showSection('trending')">시작하기</button>
+                </div>
+                <div class="features">
+                    <div class="feature-card">
+                        <h3>🔥 트렌딩 영양제</h3>
+                        <p>요즘 가장 인기 있는 영양제들을 확인해보세요</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>👥 맞춤 추천</h3>
+                        <p>성별과 나이에 맞는 영양제를 추천받으세요</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🤖 AI 상담</h3>
+                        <p>AI 챗봇과 상담하여 궁금한 점을 해결하세요</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 트렌딩 영양제 섹션 -->
+        <section id="trending" class="section">
+            <div class="container">
+                <h2>요즘 떠오르는 영양제</h2>
+                <div id="trendingSupplements" class="supplements-grid">
+                    <!-- 동적으로 로드됨 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 성별/나이별 추천 섹션 -->
+        <section id="demographics" class="section">
+            <div class="container">
+                <h2>성별/나이별 영양제 추천</h2>
+                <div class="filter-controls">
+                    <select id="genderFilter">
+                        <option value="">성별 선택</option>
+                        <option value="male">남성</option>
+                        <option value="female">여성</option>
+                    </select>
+                    <select id="ageFilter">
+                        <option value="">나이대 선택</option>
+                        <option value="20s">20대</option>
+                        <option value="30s">30대</option>
+                        <option value="40s">40대</option>
+                        <option value="50s+">50대 이상</option>
+                    </select>
+                    <button id="filterBtn" class="btn btn-primary">검색</button>
+                </div>
+                <div id="demographicSupplements" class="supplements-grid">
+                    <!-- 동적으로 로드됨 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- AI 챗봇 섹션 -->
+        <section id="chatbot" class="section">
+            <div class="container">
+                <h2>AI 영양제 상담</h2>
+                <div class="chatbot-container">
+                    <div id="chatMessages" class="chat-messages">
+                        <div class="message bot-message">
+                            <p>안녕하세요! 영양제 관련 궁금한 점이 있으시면 언제든 물어보세요.</p>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" id="chatInput" placeholder="메시지를 입력하세요..." />
+                        <button id="sendBtn" class="btn btn-primary">전송</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 로그인 모달 -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>로그인</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">이메일</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">비밀번호</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">로그인</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 회원가입 모달 -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>회원가입</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="registerEmail">이메일</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">비밀번호</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerGender">성별</label>
+                    <select id="registerGender" required>
+                        <option value="">선택하세요</option>
+                        <option value="male">남성</option>
+                        <option value="female">여성</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="registerAge">나이</label>
+                    <input type="number" id="registerAge" min="1" max="120" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerSupplements">관심 있는 영양제 (선택사항)</label>
+                    <input type="text" id="registerSupplements" placeholder="예: 비타민D, 오메가3">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">회원가입</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
